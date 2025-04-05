@@ -198,7 +198,7 @@ const Home = () => {
               lineHeight: '1.7',
               color: '#4a5568'
             }}>
-              Con nuestra plataforma podrás diseñar un currículum profesional que se adapte a cualquier puesto de trabajo. Plantillas modernas, consejos personalizados y exportación en múltiples formatos.
+              Diseña tu CV de forma fácil y profesional, ¡Prepárate para destacar!
             </p>
             
             <div style={{
@@ -287,7 +287,7 @@ const Home = () => {
                 }}>
                   ✓
                 </div>
-                <span style={{ color: '#4a5568' }}>Exportación en PDF/Word</span>
+                <span style={{ color: '#4a5568' }}>Exportación en PDF</span>
               </div>
               
               <div style={{

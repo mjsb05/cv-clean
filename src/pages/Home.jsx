@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
     right: 0.5rem;
     background-color: rgba(26, 54, 93, 0.95);
     color: white;
-    padding: 0.8rem 4%;
+    padding: 0.5rem 4%;
     border-radius: 20px;
     display: flex;
     justify-content: space-between;
@@ -59,6 +59,26 @@ const GlobalStyle = createGlobalStyle`
     transform: none;
     opacity: 0.95;
     box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .logo-img {
+    height: 45px; /* Aumenté ligeramente el tamaño */
+    width: auto;
+    object-fit: contain;
+  }
+
+  .logo-text {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: white;
   }
 `;
 
@@ -91,32 +111,15 @@ const Home = () => {
     <>
       <GlobalStyle />
       <div style={{ minHeight: '100vh' }}>
-        {/* AppBar dinámica */}
+        {/* AppBar con nueva imagen actualizada */}
         <header className={`app-bar ${hidden ? 'hidden' : ''}`}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              backgroundColor: 'white',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#1a365d',
-              fontWeight: 'bold',
-              fontSize: '1rem',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-            }}>
-              CV
-            </div>
-            <h1 style={{ 
-              margin: 0, 
-              fontSize: '1.4rem',
-              fontWeight: 700,
-              letterSpacing: '0.3px'
-            }}>
-              <span style={{ color: '#4299e1' }}>CV</span> Clean
-            </h1>
+          <div className="logo-container">
+            <img 
+              src="https://i.postimg.cc/4HZskJVQ/logo.png" 
+              alt="CV Clean Logo" 
+              className="logo-img"
+            />
+            <h1 className="logo-text">CVClean</h1>
           </div>
           
           <nav style={{ 
@@ -172,7 +175,6 @@ const Home = () => {
           margin: '0 auto',
           width: '100%'
         }}>
-          {/* Sección de texto */}
           <div style={{
             flex: 1,
             minWidth: '300px',
@@ -240,7 +242,6 @@ const Home = () => {
               </button>
             </div>
             
-            {/* Características destacadas */}
             <div style={{
               display: 'flex',
               flexWrap: 'wrap',
@@ -312,7 +313,6 @@ const Home = () => {
             </div>
           </div>
           
-          {/* Sección de imagen */}
           <div style={{
             flex: 1,
             minWidth: '300px',

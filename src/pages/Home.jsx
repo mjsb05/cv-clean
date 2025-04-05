@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
 
-// Estilos globales
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
@@ -16,6 +15,8 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #f9fafb;
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
   
   h1, h2, h3, h4 {
@@ -32,42 +33,67 @@ const GlobalStyle = createGlobalStyle`
       transform: translateY(0);
     }
   }
+
+  .app-bar {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    background-color: rgba(26, 54, 93, 0.95);
+    color: white;
+    padding: 0.8rem 4%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    backdrop-filter: blur(8px);
+    transition: all 0.4s ease;
+    max-width: calc(100% - 1rem);
+  }
+  
+  .app-bar.hidden {
+    top: auto;
+    bottom: 0.5rem;
+    transform: none;
+    opacity: 0.95;
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
+  }
 `;
 
 const Home = () => {
+  const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > 100) {
+        if (currentScrollY > lastScrollY) {
+          setHidden(true);
+        } else {
+          setHidden(false);
+        }
+      } else {
+        setHidden(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
   return (
     <>
       <GlobalStyle />
-      <div style={{ 
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column'
-      }}>
-        {/* Header redondeado y compacto */}
-        <header style={{
-          backgroundColor: '#1a365d',
-          color: 'white',
-          padding: '0.8rem 4%',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-          position: 'sticky',
-          top: '0.5rem',
-          left: '0.5rem',
-          right: '0.5rem',
-          borderRadius: '20px',
-          margin: '0.5rem',
-          zIndex: 100,
-          maxWidth: 'calc(100% - 1rem)'
-        }}>
-          {/* Logo compacto */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.6rem'
-          }}>
+      <div style={{ minHeight: '100vh' }}>
+        {/* AppBar dinámica */}
+        <header className={`app-bar ${hidden ? 'hidden' : ''}`}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <div style={{
               width: '36px',
               height: '36px',
@@ -93,7 +119,6 @@ const Home = () => {
             </h1>
           </div>
           
-          {/* Botones de navegación compactos */}
           <nav style={{ 
             display: 'flex', 
             gap: '1rem',

@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
   
   button {
     transition: all 0.3s ease;
+    cursor: pointer;
     &:hover {
       transform: translateY(-2px);
     }
@@ -41,9 +42,10 @@ const GlobalStyle = createGlobalStyle`
     right: 0.5rem;
     background-color: rgba(26, 54, 93, 0.95);
     color: white;
-    padding: 0.5rem 4%;
+    padding: 0.8rem 5%;
     border-radius: 20px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
@@ -51,6 +53,7 @@ const GlobalStyle = createGlobalStyle`
     backdrop-filter: blur(8px);
     transition: all 0.4s ease;
     max-width: calc(100% - 1rem);
+    gap: 1rem;
   }
   
   .app-bar.hidden {
@@ -61,24 +64,107 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
   }
 
-  .logo-container {
+  .logo-section {
     display: flex;
     align-items: center;
     gap: 0.8rem;
+    flex: 1;
+    min-width: 0;
   }
 
   .logo-img {
-    height: 45px; /* Aumenté ligeramente el tamaño */
+    height: 45px;
     width: auto;
     object-fit: contain;
+    flex-shrink: 0;
   }
 
   .logo-text {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
     font-weight: 700;
     letter-spacing: 0.3px;
     color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 0.8rem;
+    margin: 0;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .image-container {
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+  }
+
+  .example-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .image-caption {
+    text-align: center;
+    margin-top: 1rem;
+    font-family: 'Georgia', serif;
+    color: #2c5282;
+    font-size: clamp(1rem, 3vw, 1.1rem);
+    font-style: italic;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    body {
+      padding-top: 70px;
+      padding-bottom: 70px;
+    }
+    
+    .app-bar {
+      padding: 0.6rem 5%;
+      gap: 0.8rem;
+    }
+    
+    .logo-img {
+      height: 35px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+    
+    .app-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+      padding: 0.5rem;
+    }
+    
+    .logo-section {
+      justify-content: center;
+    }
+    
+    .nav-buttons {
+      justify-content: space-around;
+      gap: 0.5rem;
+    }
   }
 `;
 
@@ -111,9 +197,9 @@ const Home = () => {
     <>
       <GlobalStyle />
       <div style={{ minHeight: '100vh' }}>
-        {/* AppBar con nueva imagen actualizada */}
+        {/* AppBar responsiva */}
         <header className={`app-bar ${hidden ? 'hidden' : ''}`}>
-          <div className="logo-container">
+          <div className="logo-section">
             <img 
               src="https://i.postimg.cc/4HZskJVQ/logo.png" 
               alt="CV Clean Logo" 
@@ -122,21 +208,18 @@ const Home = () => {
             <h1 className="logo-text">CVClean</h1>
           </div>
           
-          <nav style={{ 
-            display: 'flex', 
-            gap: '1rem',
-            margin: '0.3rem 0'
-          }}>
+          <nav className="nav-buttons">
             <button style={{ 
               color: 'white', 
               background: 'none', 
               border: 'none',
               padding: '0.5rem 1rem',
-              cursor: 'pointer',
-              fontSize: '0.95rem',
+              fontSize: 'clamp(0.8rem, 3vw, 0.95rem)',
               fontWeight: 500,
               borderRadius: '8px',
-              '&:hover': {
+              whiteSpace: 'nowrap',
+              minWidth: 'fit-content',
+              ':hover': {
                 backgroundColor: 'rgba(255,255,255,0.1)'
               }
             }}>
@@ -148,11 +231,12 @@ const Home = () => {
               border: 'none',
               padding: '0.5rem 1rem',
               borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '0.95rem',
+              fontSize: 'clamp(0.8rem, 3vw, 0.95rem)',
               fontWeight: 600,
+              whiteSpace: 'nowrap',
+              minWidth: 'fit-content',
               boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-              '&:hover': {
+              ':hover': {
                 backgroundColor: '#ebf8ff'
               }
             }}>
@@ -161,30 +245,30 @@ const Home = () => {
           </nav>
         </header>
 
-        {/* Contenido principal */}
+        {/* Contenido principal completamente responsivo */}
         <main style={{
-          flex: 1,
           display: 'flex',
           flexDirection: 'row',
-          flexWrap: 'wrap-reverse',
-          alignItems: 'center',
+          flexWrap: 'wrap',
+          alignItems: 'flex-start',
           justifyContent: 'center',
-          padding: '2rem 4%',
+          padding: '1rem 4% 2rem',
           gap: '2.5rem',
           maxWidth: '1400px',
           margin: '0 auto',
           width: '100%'
         }}>
+          {/* Columna izquierda - Contenido de texto */}
           <div style={{
-            flex: 1,
-            minWidth: '300px',
+            flex: '1 1 400px',
+            minWidth: 'min(100%, 300px)',
             maxWidth: '600px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1.8rem'
+            gap: '1.5rem',
           }}>
             <h2 style={{ 
-              fontSize: '2.3rem',
+              fontSize: 'clamp(1.8rem, 5vw, 2.3rem)',
               margin: 0,
               color: '#2d3748',
               fontWeight: 700,
@@ -194,7 +278,7 @@ const Home = () => {
             </h2>
             
             <p style={{ 
-              fontSize: '1.1rem',
+              fontSize: 'clamp(1rem, 3vw, 1.1rem)',
               lineHeight: '1.7',
               color: '#4a5568'
             }}>
@@ -203,159 +287,87 @@ const Home = () => {
             
             <div style={{
               display: 'flex',
-              gap: '1rem',
-              flexWrap: 'wrap'
+              justifyContent: 'center',
+              width: '100%'
             }}>
               <button style={{
-                padding: '0.8rem 1.6rem',
+                padding: 'clamp(0.7rem, 2vw, 0.8rem) clamp(1.5rem, 4vw, 2rem)',
                 backgroundColor: '#4299e1',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
-                cursor: 'pointer',
-                fontSize: '1rem',
+                fontSize: 'clamp(0.9rem, 3vw, 1rem)',
                 fontWeight: 600,
-                minWidth: '170px',
+                minWidth: 'fit-content',
                 boxShadow: '0 4px 6px rgba(66, 153, 225, 0.3)',
-                '&:hover': {
+                ':hover': {
                   backgroundColor: '#3182ce'
                 }
               }}>
                 Comenzar Ahora
               </button>
-              
-              <button style={{
-                padding: '0.8rem 1.6rem',
-                backgroundColor: 'transparent',
-                color: '#4299e1',
-                border: '2px solid #4299e1',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontSize: '1rem',
-                fontWeight: 600,
-                minWidth: '170px',
-                '&:hover': {
-                  backgroundColor: '#ebf8ff'
-                }
-              }}>
-                Ver Ejemplos
-              </button>
             </div>
             
             <div style={{
               display: 'flex',
-              flexWrap: 'wrap',
-              gap: '1.2rem',
-              marginTop: '0.8rem'
+              flexDirection: 'column',
+              gap: '1rem',
+              marginTop: '0.5rem'
             }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem'
-              }}>
-                <div style={{
-                  width: '22px',
-                  height: '22px',
-                  backgroundColor: '#4299e1',
-                  borderRadius: '50%',
+              {[
+                "Plantillas profesionales y creativas",
+                "Exportación en PDF",
+                "Asesoramiento personalizado"
+              ].map((item, index) => (
+                <div key={index} style={{
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '0.7rem'
+                  gap: '0.5rem'
                 }}>
-                  ✓
+                  <div style={{
+                    width: '22px',
+                    height: '22px',
+                    backgroundColor: '#4299e1',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '0.7rem',
+                    flexShrink: 0
+                  }}>
+                    ✓
+                  </div>
+                  <span style={{ 
+                    color: '#4a5568',
+                    fontSize: 'clamp(0.9rem, 3vw, 1rem)'
+                  }}>
+                    {item}
+                  </span>
                 </div>
-                <span style={{ color: '#4a5568' }}>Plantillas profesionales</span>
-              </div>
-              
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem'
-              }}>
-                <div style={{
-                  width: '22px',
-                  height: '22px',
-                  backgroundColor: '#4299e1',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '0.7rem'
-                }}>
-                  ✓
-                </div>
-                <span style={{ color: '#4a5568' }}>Exportación en PDF</span>
-              </div>
-              
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem'
-              }}>
-                <div style={{
-                  width: '22px',
-                  height: '22px',
-                  backgroundColor: '#4299e1',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '0.7rem'
-                }}>
-                  ✓
-                </div>
-                <span style={{ color: '#4a5568' }}>Asesoramiento personalizado</span>
-              </div>
+              ))}
             </div>
           </div>
           
+          {/* Columna derecha - Imagen y eslogan */}
           <div style={{
-            flex: 1,
-            minWidth: '300px',
+            flex: '1 1 400px',
+            minWidth: 'min(100%, 300px)',
             maxWidth: '600px',
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative'
+            flexDirection: 'column',
+            alignItems: 'center'
           }}>
-            <div style={{
-              width: '100%',
-              paddingBottom: '66.66%',
-              backgroundColor: '#e2e8f0',
-              borderRadius: '12px',
-              boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)',
-              overflow: 'hidden',
-              position: 'relative'
-            }}>
+            <div className="image-container">
               <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" 
-                alt="Ilustración CV profesional" 
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }}
+                src="https://opem.b-cdn.net/wp-content/uploads/2017/09/Curriculum_CALIFORNIA-1-768x1024.jpg" 
+                alt="Ejemplo de CV profesional" 
+                className="example-image"
               />
-              <div style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                padding: '1.2rem',
-                background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
-                color: 'white'
-              }}>
-                <h3 style={{ margin: 0, fontSize: '1.1rem' }}>Ejemplo de CV profesional</h3>
-                <p style={{ margin: '0.4rem 0 0', opacity: 0.9, fontSize: '0.9rem' }}>Diseño limpio y moderno</p>
-              </div>
             </div>
+            <p className="image-caption">
+              "Diseños limpios, oportunidades claras - CVClean"
+            </p>
           </div>
         </main>
       </div>

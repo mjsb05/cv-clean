@@ -1,12 +1,49 @@
-# React + Vite
+# CVClean 📄✨
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Creación de currículums con inteligencia artificial
 
-Currently, two official plugins are available:
+CVClean es un proyecto desarrollado durante un hackathon, cuyo objetivo fue facilitar la creación de currículums mediante inteligencia artificial y permitir su generación en formato PDF.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+La propuesta buscaba simplificar el proceso de elaboración de un CV, ayudando a las personas a presentar su información de manera más clara y profesional.
 
-## Expanding the ESLint configuration
+## 🎯 Objetivo
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Desarrollar una aplicación enfocada en dispositivos móviles que permitiera crear currículums de manera sencilla, aprovechando herramientas de inteligencia artificial para apoyar la elaboración del contenido y generar documentos PDF.
+
+## ✨ Funcionalidades principales
+
+- **Creación de CV con IA:** asistencia inteligente para elaborar el contenido del currículum.
+- **Generación de PDF:** posibilidad de obtener el currículum en un documento PDF.
+- **Experiencia sencilla:** propuesta de una interfaz accesible para facilitar la creación del CV.
+
+## 🛠️ Tecnologías
+
+De acuerdo con las dependencias presentes en este repositorio:
+
+- React
+- JavaScript
+- Vite
+- Tailwind CSS
+- Styled Components
+- React Router
+- PDF-lib
+
+## 🏆 Reconocimiento
+
+**Segundo lugar — Hackathon CANIETI 2025**
+
+CVClean fue presentado durante un hackathon organizado por CANIETI en el Instituto Tecnológico de Mérida, donde nuestro equipo obtuvo el segundo lugar.
+
+## 👩‍💻 Mi participación
+
+Como integrante del equipo, participé en la conceptualización y planeación de la propuesta, definición de requerimientos, organización de funcionalidades y preparación de los entregables para la presentación ante el jurado.
+
+Esta experiencia representó uno de mis primeros acercamientos al desarrollo de soluciones tecnológicas en equipo y al trabajo bajo los tiempos y retos de un hackathon.
+
+## 📌 Estado del proyecto
+
+CVClean representa una primera etapa de aprendizaje y experimentación en el desarrollo de soluciones digitales con inteligencia artificial.
+
+---
+
+*Una idea, un equipo y el primer paso para convertir la tecnología en una herramienta útil.*
